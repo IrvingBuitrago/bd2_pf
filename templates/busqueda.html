@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Estudiantes</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styledash.css') }}">
+</head>
+<body>
+    <h2>Panel de Estudiantes</h2>
+    <form action="/perfil/estudiante" method="GET">
+        <button type="submit">Ver Perfil</button>
+    </form>
+
+    <!-- Barra de búsqueda -->
+    <form action="/dash/estudiante" method="POST">
+        <input type="text" name="title" placeholder="Buscar por título">
+        <button type="submit">Buscar</button>
+    </form>
+
+         <!-- Botón para cerrar sesión -->
+     <form action="/logout" method="POST">
+        <button type="submit">Cerrar Sesión</button>
+    </form>
+
+    {% if result %}
+        <div class="vacancy-container">
+            {% for row in result %}
+                <a href="{{ url_for('detalle_vacante', vacante_id=row[5]) }}" class="vacancy-link">
+                    <div class="vacancy-box">
+                        <p><strong>{{ row[0] }}</strong></p>
+                        <p>Puesto: {{ row[1] }}</p>
+                        <p>Ubicación: {{ row[2] }}</p>
+                        <p>Vacantes disponibles: {{ row[3] }}</p>
+                        <p>Publicado {{ row[4] }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No se encontraron datos para mostrar.</p>
+    {% endif %}
+</body>
+</html>

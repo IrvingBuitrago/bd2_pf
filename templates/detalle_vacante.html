@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles de la Vacante</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='detalle_vacante.css') }}">
+
+</head>
+<body>
+    <h2>Detalles de la Vacante</h2>
+
+    {% if error_message %}
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+{% endif %}
+
+    <p>Nombre de la empresa: {{ vacante[0] }}</p>
+    <p>Nombre del puesto: {{ vacante[1] }}</p>
+    <p>Ubicación: {{ vacante[4] }}</p>
+    <p>Descripcion: {{ vacante[2] }}</p>
+    <p>Requisitos: {{ vacante[3] }}</p>
+    <p>Tipo: {{ vacante[5] }}</p>
+    <p>Vacantes disponibles: {{ vacante[6] }}</p>
+    <p>Sector: {{ vacante[8] }}</p>
+    <p>Publicado {{ vacante[7] }}</p>
+
+    <!-- Formulario para postularse -->
+    <form action="{{ url_for('postularse') }}" method="POST">
+        <!-- Campo oculto para enviar el id_vacancy -->
+        <input type="hidden" name="id_vacancy" value="{{ vacante[9] }}">
+        <!-- Botón para enviar la solicitud de postulación -->
+        <button type="submit">Postularse</button>
+    </form>
+
+    <!-- Botón para regresar al dashboard -->
+    <form action="{{ url_for('dashboard_estudiante') }}" method="GET">
+        <button type="submit">Regresar al Dashboard</button>
+    </form>
+</body>
+</html>

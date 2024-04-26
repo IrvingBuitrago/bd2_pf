@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postulaciones</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='postulaciones.css') }}">
+</head>
+<body>
+    <h2>Postulaciones</h2>
+    <form action="/perfil/estudiante" method="GET">
+        <button type="submit">Ver Perfil</button>
+    </form>
+
+    <!-- Barra de búsqueda -->
+    <form action="/dash/estudiante" method="POST">
+        <input type="text" name="title" placeholder="Buscar por título">
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if result %}
+        <div class="postulaciones-container">
+            {% for row in result %}
+                <div class="postulacion-box">
+                    <p><strong>{{ row[1] }}</strong></p>
+                    <p>Posición: {{ row[2] }}</p>
+                    <p>Ubicación: {{ row[3] }}</p>
+                    <p>Estado de la Solicitud: {{ row[4] }}</p>
+                    <p>Nombre de la Solicitud: {{ row[5] }}</p>
+                    <form action="/postulaciones" method="POST">
+                        <input type="hidden" name="id_postulacion" value="{{ row[0] }}">
+                        <button type="submit">Borrar Postulación</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No se encontraron postulaciones.</p>
+    {% endif %}
+</body>
+</html>

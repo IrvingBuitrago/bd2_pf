@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Estudiante</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styleperfil.css') }}">
+</head>
+<body>
+    <h2>Perfil de Estudiante</h2>
+    {% if result %}
+        {% for row in result %}
+            <form action="/perfil/estudiante" method="POST" enctype="multipart/form-data">
+                <p>Nombre de usuario: {{ row[1] }}</p>
+                <p>Nombre: <input type="text" name="first_name" value="{{ row[4] }}"></p>
+                <p>Apellido: <input type="text" name="last_name" value="{{ row[5] }}"></p>
+                <p>Correo Electrónico: <input type="text" name="email" value="{{ row[3] }}"></p>
+                <p>Rol: {{ row[6] }}</p>
+                <p>Carrera: <input type="text" name="career" value="{{ row[7] }}"></p>
+                <p>Año de estudio: <input type="text" name="year_study" value="{{ row[9] }}"></p>
+                <p>Teléfono Celular: <input type="text" name="cellphone" value="{{ row[8] }}"></p>
+                <input type="file" name="pdf_file">
+                <input type="submit" value="Actualizar">
+            </form>
+
+
+        {% endfor %}
+    {% else %}
+    {% endif %}
+    {% if msg %}
+    <p>{{ msg }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('dashboard_estudiante') }}">Volver al dashboard de estudiantes</a>
+</body>
+</html>
